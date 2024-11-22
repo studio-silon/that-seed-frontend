@@ -1,4 +1,3 @@
-// i hate typescript. but, i'm forced to use typescript on the backend to collaborate with uiovasot. 
 import type { RequestHandler } from './$types';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';

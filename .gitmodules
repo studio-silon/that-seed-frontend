@@ -1,0 +1,3 @@
+[submodule "not-seed"]
+	path = not-seed
+	url = https://github.com/uiovasot/not-seed.git
