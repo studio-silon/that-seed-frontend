@@ -97,6 +97,7 @@ export class Backend {
 						namespace: string;
 						name: string;
 						forbidden: boolean;
+						discussions?: { id: number }[];
 				  }
 				| undefined,
 			parse: additionalData?.parse as

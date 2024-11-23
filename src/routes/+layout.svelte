@@ -4,6 +4,7 @@
 	import Dropdown from '../component/Dropdown.svelte';
 	import SearchFrom from '../component/SearchFrom.svelte';
 	import theme from '../theme.json';
+	import RecentCard from '../component/RecentCard.svelte';
 
 	const backend = new Backend(fetch);
 
@@ -140,8 +141,36 @@
 			</nav>
 		</div>
 		<div class="content-wrapper">
+			<div class="liberty-sidebar">
+				<div class="liberty-right-fixed">
+					<div class="live-recent">
+						<div class="live-recent-header">
+							<ul class="nav nav-tabs">
+								<li class="nav-item">
+									<a id="liberty-recent-tab1" class="nav-link active">최근 변경</a>
+								</li>
+							</ul>
+						</div>
+						<RecentCard limit={10} />
+						<div class="live-recent-footer">
+							<a href="/RecentChanges" title="최근 변경내역"
+								><span class="label label-info">더 보기</span></a
+							>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="container-fluid liberty-content">
 				<slot />
+				<div id="bottom" class="liberty-footer">
+					<ul class="footer-places"></ul>
+					<ul class="footer-icons">
+						<li class="footer-poweredbyico">
+							<a href="//gitlab.com/librewiki/Liberty-MW-Skin">Liberty</a> |
+							<a href="https://github.com/studio-silon/that-seed-frontend">not seed(that seed)</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
