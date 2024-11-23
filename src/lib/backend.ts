@@ -66,8 +66,8 @@ export class Backend {
 		};
 	}
 
-	async getDocs() {
-		const response = await fetch('/api/wiki/FrontPage?_data=routes%2Fwiki.%24');
+	async getDocs(page: string) {
+		const response = await fetch('/api/wiki/' + page + '?_data=routes%2Fwiki.%24');
 		if (!response.ok || !response.body) {
 			throw new Error('Network response was not ok');
 		}
@@ -87,21 +87,25 @@ export class Backend {
 		const lines = result.split('\n');
 		const jsonData = JSON.parse(lines[0]);
 		const additionalDataLine = lines[2].replace('data:', '').trim();
-		const additionalData = JSON.parse(additionalDataLine);
+		const additionalData = lines[2] !== '' ? JSON.parse(additionalDataLine) : undefined;
 
 		return {
-			wiki: jsonData.wiki as {
-				id: number;
-				title: string;
-				namespace: string;
-				name: string;
-				forbidden: boolean;
-			},
-			parse: additionalData.data.parse as {
-				value: string;
-				categories: string[];
-				backlinks: string[];
-			}
+			wiki: jsonData.wiki as
+				| {
+						id: number;
+						title: string;
+						namespace: string;
+						name: string;
+						forbidden: boolean;
+				  }
+				| undefined,
+			parse: additionalData?.parse as
+				| {
+						value: string;
+						categories: string[];
+						backlinks: string[];
+				  }
+				| undefined
 		};
 	}
 }

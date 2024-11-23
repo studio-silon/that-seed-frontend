@@ -1,57 +1,46 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import { writable } from 'svelte/store';
 
-	let show = false;
-	let dropdownRef: HTMLDivElement;
+	const show = writable(false);
 
-	function toggle() {
-		show = !show;
-	}
+	const toggle = (): void => {
+		show.update((state) => !state);
+	};
 
-	function hide() {
-		show = false;
-	}
+	const hide = (): void => {
+		show.set(false);
+	};
 
-	function handleClickOutside(event: Event) {
-		if (show && dropdownRef && !dropdownRef.contains(event.target as Node)) {
-			hide();
+	const backdrop = (e: MouseEvent): void => {
+		if ($show && dropdown && !dropdown.contains(e.target as Node)) {
+			show.set(false);
 		}
-	}
+	};
 
-	onMount(() => {
-		document.addEventListener('click', handleClickOutside);
-		return () => {
-			document.removeEventListener('click', handleClickOutside);
-		};
-	});
+	let dropdown: HTMLDivElement | null;
 
 	export let className = '';
+
+	onMount(() => {
+		document.addEventListener('click', backdrop);
+		return () => {
+			document.removeEventListener('click', backdrop);
+		};
+	});
 </script>
 
-<div bind:this={dropdownRef} class="dropdown {className}">
+<div bind:this={dropdown} class="dropdown {className}">
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div on:click={toggle}>
 		<slot name="toggle"></slot>
 	</div>
-	{#if show}
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
+	{#if $show}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
-		<div class="dropdown-menu {className}" on:click={hide}>
-			<slot name="dropdown"></slot>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div class:open={$show} on:click={hide}>
+			<slot></slot>
 		</div>
 	{/if}
 </div>
-
-<style>
-	@import '../lib/css/bootstrap.min.css';
-	@import '../lib/css/font-awesome.min.css';
-	@import '../lib/css/font/Noto Sans KR.css';
-	@import '../lib/css/default.css';
-	@import '../lib/css/default_mobile.css';
-	@import '../lib/css/dark.css';
-
-	.dropdown-menu {
-		display: block;
-	}
-</style>

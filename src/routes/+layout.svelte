@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { Backend } from '$lib/backend';
+	import { onMount } from 'svelte';
 	import Dropdown from '../component/Dropdown.svelte';
+	import SearchFrom from '../component/SearchFrom.svelte';
+	import theme from '../theme.json';
 
 	const backend = new Backend(fetch);
 
@@ -9,11 +12,19 @@
 	}
 	let getDataPromise = getData();
 
-	let isOpen = false;
+	const applyCSSVariables = (theme: Record<string, string>) => {
+		const root = document.documentElement;
 
-	function toggleDropdown() {
-		isOpen = !isOpen;
-	}
+		for (const key in theme) {
+			if (theme.hasOwnProperty(key)) {
+				root.style.setProperty(`--${key}`, theme[key]);
+			}
+		}
+	};
+
+	onMount(() => {
+		applyCSSVariables(theme);
+	});
 </script>
 
 {#await getDataPromise}
@@ -41,7 +52,7 @@
 							><span class="fa fa-random"></span><span class="hide-title">임의 문서</span></a
 						>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item">
 						<Dropdown>
 							<div slot="toggle">
 								<!-- svelte-ignore a11y_missing_attribute -->
@@ -53,7 +64,7 @@
 									<span class="fa fa-gear"></span><span class="hide-title">도구</span>
 								</a>
 							</div>
-							<div slot="dropdown">
+							<div class="dropdown-menu" role="menu">
 								<a href="/NeededPages" class="dropdown-item">작성이 필요한 문서</a>
 								<a href="/OrphanedPages" class="dropdown-item">고립된 문서</a>
 								<a href="/UncategorizedPages" class="dropdown-item">분류가 되지 않은 문서</a>
@@ -79,18 +90,12 @@
 						<Dropdown className="login-menu">
 							<div slot="toggle">
 								<!-- svelte-ignore a11y_missing_attribute -->
-								<a
-									id="login-menu"
-									class="dropdown-toggle"
-									type="button"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-								>
+								<!-- svelte-ignore a11y_consider_explicit_label -->
+								<a id="login-menu" class="dropdown-toggle" type="button">
 									<span class="fa fa-user"></span>
 								</a>
 							</div>
-							<div slot="dropdown">
+							<div class="dropdown-menu dropdown-menu-right login-dropdown-menu">
 								<div class="username dropdown-item">
 									<b>{data.user.username}</b><br />Member
 								</div>
@@ -115,22 +120,13 @@
 					{:else}
 						<Dropdown className="login-menu">
 							<div slot="toggle">
-								<a
-									id="login-menu"
-									class="dropdown-toggle"
-									type="button"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									on:click={toggleDropdown}
-								>
+								<!-- svelte-ignore a11y_missing_attribute -->
+								<!-- svelte-ignore a11y_consider_explicit_label -->
+								<a id="login-menu" class="dropdown-toggle" type="button">
 									<span class="fa fa-user"></span>
 								</a>
 							</div>
-							<div
-								slot="dropdown"
-								class="dropdown-menu dropdown-menu-right login-dropdown-menu {isOpen ? 'open' : ''}"
-							>
+							<div class="dropdown-menu dropdown-menu-right login-dropdown-menu">
 								<div class="username dropdown-item">Please login!</div>
 								<div class="dropdown-divider"></div>
 								<a id="theme" href="#" class="dropdown-item">다크 테마로</a>
@@ -140,59 +136,15 @@
 						</Dropdown>
 					{/if}
 				</div>
-				<form id="searchform" class="form-inline">
-					<div class="input-group">
-						<input
-							type="search"
-							name="q"
-							placeholder="검색"
-							accesskey="f"
-							class="form-control"
-							id="searchInput"
-							autocomplete="off"
-						/>
-						<span class="input-group-btn">
-							<button
-								type="submit"
-								name="fulltext"
-								value="검색"
-								id="searchSearchButton"
-								class="btn btn-secondary"><span class="fa fa-search"></span></button
-							>
-							<button
-								type="submit"
-								name="go"
-								value="보기"
-								id="searchGoButton"
-								class="btn btn-secondary"><span class="fa fa-arrow-right"></span></button
-							>
-						</span>
-					</div>
-				</form>
+				<SearchFrom />
 			</nav>
 		</div>
+		<div class="content-wrapper">
+			<div class="container-fluid liberty-content">
+				<slot />
+			</div>
+		</div>
 	</div>
-	<slot />
 {:catch someError}
 	System error: {someError.message}.
 {/await}
-
-<style>
-	@import '../lib/css/bootstrap.min.css';
-	@import '../lib/css/font-awesome.min.css';
-	@import '../lib/css/font/Noto Sans KR.css';
-	@import '../lib/css/default.css';
-	@import '../lib/css/default_mobile.css';
-	@import '../lib/css/dark.css';
-
-	.dropdown-menu {
-		z-index: 1;
-		opacity: 0;
-		transition: opacity 0.2s ease-in-out;
-	}
-
-	.dropdown-menu.open {
-		display: block;
-		opacity: 1;
-	}
-</style>
