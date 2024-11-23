@@ -1,3 +1,7 @@
+<style>
+@import "./page.css"
+</style>
+
 <script lang="ts">
 	import { Backend } from '$lib/backend';
 	const backend = new Backend(fetch);
