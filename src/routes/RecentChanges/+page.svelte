@@ -24,6 +24,19 @@
 
 <div class="liberty-content-header"><div class="title"><h1>최근 변경내역</h1></div></div>
 
+<div class="GWlp0pYF bVOFUIj+">
+	<div class="cTz-hF-R"><div class="bV8gNdAl">
+		<ul class="It31s+gh">
+			<li><a href="/RecentChanges?logtype=all" class="WdVBByw4 KabYxB0R">전체</a></li>
+			<li><a href="/RecentChanges?logtype=create" class="WdVBByw4">새 문서</a></li>
+			<li><a href="/RecentChanges?logtype=delete" class="WdVBByw4">삭제</a></li>
+			<li><a href="/RecentChanges?logtype=move" class="WdVBByw4">이동</a></li>
+			<li><a href="/RecentChanges?logtype=revert" class="WdVBByw4">되돌림</a></li>
+		</ul>
+	</div>
+</div>
+<div class="cXjPkFdN _2ubH0qo7" style="opacity: 0;"></div><div class="cXjPkFdN" style="opacity: 0; display: none;"></div></div>
+
 <div class="change-history-list">
 	<div class="header-row">
 		<div class="change-column">문서</div>
