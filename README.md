@@ -2,7 +2,7 @@
 
 # That seed Frontend
 
-# Made By 1ongames + uiovasot
+# Made By theseeduse + uiovasot
 
 # 사용법
 
