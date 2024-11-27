@@ -1,3 +1,5 @@
+import { urlEncoding } from './utils/wiki';
+
 export class Backend {
 	private fetch: typeof fetch;
 
@@ -67,7 +69,7 @@ export class Backend {
 	}
 
 	async getDocs(page: string) {
-		const response = await fetch('/api/wiki/' + page + '?_data=routes%2Fwiki.%24');
+		const response = await fetch('/api/wiki/' + urlEncoding(page) + '?_data=routes%2Fwiki.%24');
 		if (!response.ok || !response.body) {
 			throw new Error('Network response was not ok');
 		}
@@ -97,9 +99,29 @@ export class Backend {
 						namespace: string;
 						name: string;
 						forbidden: boolean;
+						content: string;
 						discussions?: { id: number }[];
 				  }
 				| undefined,
+			canEdit: Boolean(jsonData.canEdit),
+			canMove: Boolean(jsonData.canMove),
+			canDelete: Boolean(jsonData.canDelete),
+			editRequests: jsonData.editRequests.map((req: any) => ({
+				id: +req.id,
+				wikiId: +req.wikiId,
+				type: +req.type,
+				newNamespace: '' + req.newNamespace,
+				newTitle: '' + req.newTitle,
+				content: '' + req.content,
+				log: '' + req.log,
+				ipAddress: '' + req.ipAddress,
+				status: +req.status,
+				reviewedAt: '' + req.reviewedAt,
+				reviewLog: '' + req.reviewLog,
+				username: '' + (req.user?.username ?? ''),
+				createdAt: '' + req.createdAt,
+				updatedAt: '' + req.updatedAt
+			})),
 			parse: additionalData?.parse as
 				| {
 						value: string;
@@ -108,5 +130,56 @@ export class Backend {
 				  }
 				| undefined
 		};
+	}
+
+	async editDocs(page: string, content: string, log: string) {
+		const response = await fetch('/api/wiki/' + urlEncoding(page), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				title: page,
+				isDeleting: '0',
+				content,
+				log
+			})
+		});
+
+		return response.ok;
+	}
+
+	async deleteDocs(page: string, log: string) {
+		const response = await fetch('/api/wiki/' + urlEncoding(page), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				title: page,
+				isDeleting: '1',
+				content: '',
+				log
+			})
+		});
+
+		return response.ok;
+	}
+
+	async moveDocs(page: string, title: string, content: string, log: string) {
+		const response = await fetch('/api/wiki/' + urlEncoding(page), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				title: title,
+				isDeleting: '0',
+				content,
+				log
+			})
+		});
+
+		return response.ok;
 	}
 }

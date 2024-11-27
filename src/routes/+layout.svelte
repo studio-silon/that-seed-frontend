@@ -13,6 +13,8 @@
 	}
 	let getDataPromise = getData();
 
+	let isDark = $state(false);
+
 	const applyCSSVariables = (theme: Record<string, string>) => {
 		const root = document.documentElement;
 
@@ -23,8 +25,20 @@
 		}
 	};
 
+	const applyDarkMode = () => {
+		const root = document.body;
+
+		if (isDark) {
+			root.classList.add('theseed-dark-mode');
+		} else {
+			root.classList.remove('theseed-dark-mode');
+		}
+	};
+
 	onMount(() => {
 		applyCSSVariables(theme);
+		isDark = localStorage.getItem('darkMode') ? !+localStorage.getItem('darkMode')! : true;
+		applyDarkMode();
 	});
 </script>
 
@@ -77,8 +91,6 @@
 								<a href="/Upload" class="dropdown-item">파일 올리기</a>
 								<a href="/License" class="dropdown-item">라이선스</a>
 								<div class="dropdown-divider"></div>
-								<a href="/admin/ipacl" class="dropdown-item">IPACL</a>
-								<a href="/admin/suspend_account" class="dropdown-item">계정 차단</a>
 								<a href="/admin/grant" class="dropdown-item">권한</a>
 								<a href="/admin/login_history" class="dropdown-item">로그인 기록 조회</a>
 								<a href="/aclgroup" class="dropdown-item">ACL Group</a>
@@ -87,25 +99,39 @@
 					</li>
 				</ul>
 				<div class="navbar-login">
-					{#if data.user}
-						<Dropdown className="login-menu">
-							<div slot="toggle">
-								<!-- svelte-ignore a11y_missing_attribute -->
-								<!-- svelte-ignore a11y_consider_explicit_label -->
-								<a id="login-menu" class="dropdown-toggle" type="button">
-									<span class="fa fa-user"></span>
-								</a>
-							</div>
-							<div class="dropdown-menu dropdown-menu-right login-dropdown-menu">
+					<Dropdown className="login-menu">
+						<div slot="toggle">
+							<!-- svelte-ignore a11y_consider_explicit_label -->
+							<a id="login-menu" class="dropdown-toggle" type="button">
+								<span class="fa fa-user"></span>
+							</a>
+						</div>
+						<div class="dropdown-menu dropdown-menu-right login-dropdown-menu">
+							{#if data.user}
 								<div class="username dropdown-item">
 									<b>{data.user.username}</b><br />Member
 								</div>
-								<div class="dropdown-divider"></div>
+							{:else}
+								<div class="username dropdown-item">Please login!</div>
+							{/if}
+							<div class="dropdown-divider"></div>
+							<a
+								id="theme"
+								href="#"
+								onclick={() => {
+									isDark = !isDark;
+									localStorage.setItem('darkMode', '' + +!+isDark);
+
+									applyDarkMode();
+								}}
+								class="dropdown-item"
+								>{#if isDark}라이트{:else}다크{/if} 테마로</a
+							>
+							<div class="dropdown-divider"></div>
+							{#if data.user}
 								<a href="/settings" class="dropdown-item">설정</a>
-								<a id="theme" href="#" class="dropdown-item">다크 테마로</a>
-								<div class="dropdown-divider"></div>
 								<a href="/member/mypage" class="dropdown-item">내 정보</a>
-								<a href="/w/{data.user.username}" class="dropdown-item">내 사용자 문서</a>
+								<a href="/w/사용자:{data.user.username}" class="dropdown-item">내 사용자 문서</a>
 								<a href="/member/starred_documents" class="dropdown-item">내 문서함</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="/contribution/user/{data.user.username}/document"
@@ -116,26 +142,11 @@
 								>
 								<div class="dropdown-divider"></div>
 								<a href="/logout" class="dropdown-item">로그아웃</a>
-							</div>
-						</Dropdown>
-					{:else}
-						<Dropdown className="login-menu">
-							<div slot="toggle">
-								<!-- svelte-ignore a11y_missing_attribute -->
-								<!-- svelte-ignore a11y_consider_explicit_label -->
-								<a id="login-menu" class="dropdown-toggle" type="button">
-									<span class="fa fa-user"></span>
-								</a>
-							</div>
-							<div class="dropdown-menu dropdown-menu-right login-dropdown-menu">
-								<div class="username dropdown-item">Please login!</div>
-								<div class="dropdown-divider"></div>
-								<a id="theme" href="#" class="dropdown-item">다크 테마로</a>
-								<div class="dropdown-divider"></div>
+							{:else}
 								<a href="/login" class="dropdown-item">로그인</a>
-							</div>
-						</Dropdown>
-					{/if}
+							{/if}
+						</div>
+					</Dropdown>
 				</div>
 				<SearchFrom />
 			</nav>

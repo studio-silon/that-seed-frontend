@@ -10,7 +10,7 @@
 	$: $page, resetOnRouteChange();
 
 	const mockAutocomplete = (query: string): string[] => {
-		const sampleData = ['Option 1', 'Option 2', 'Option 3']; // Replace with actual logic
+		const sampleData = ['Option 1', 'Option 2', 'Option 3'];
 		return sampleData.filter((item) => item.toLowerCase().includes(query.toLowerCase()));
 	};
 

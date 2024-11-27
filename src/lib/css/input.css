@@ -1,0 +1,25 @@
+.seed-edit-input {
+	border: none;
+	border-radius: 0;
+	color: #55595c;
+	font-family: inherit;
+	font-size: 0.9rem;
+	height: 30rem;
+	margin: 0;
+	padding: 0.25rem 0.5rem;
+	resize: vertical;
+	width: 100%;
+	box-shadow: none;
+}
+
+.seed-log-input {
+	background-color: #fff;
+	background-image: none;
+	border: 0.0625rem solid #ccc;
+	border-radius: 0;
+	color: #55595c;
+	width: 100%;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	padding: 0.25rem 0.5rem;
+}

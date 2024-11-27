@@ -1,16 +1,8 @@
 import express from 'express';
-import { createServer as createViteServer } from 'vite';
+import ViteExpress from 'vite-express';
 import { createRequestHandler } from '@remix-run/express';
 
 const app = express();
-
-async function startSvelteKit() {
-	const vite = await createViteServer({
-		root: '.',
-		server: { middlewareMode: 'ssr' }
-	});
-	app.use(vite.middlewares);
-}
 
 async function startRemix() {
 	app.use(
@@ -28,11 +20,12 @@ async function startRemix() {
 
 async function startServer() {
 	await startRemix();
-	await startSvelteKit();
 
-	app.listen(3000, () => {
+	const server = app.listen(3000, () => {
 		console.log('서버가 http://localhost:3000 에서 실행 중입니다.');
 	});
+
+	ViteExpress.bind(app, server);
 }
 
 startServer();

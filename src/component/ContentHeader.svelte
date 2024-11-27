@@ -1,23 +1,33 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { joinName } from '$lib/utils/wiki';
 
-	export let wiki:
-		| {
-				id: number;
-				title: string;
-				namespace: string;
-				name: string;
-				forbidden: boolean;
-		  }
-		| undefined;
+	let {
+		wiki,
+		viewName = 'wiki',
+		baserev,
+		section,
+		rev,
+		children
+	}: {
+		wiki:
+			| {
+					id: number;
+					title: string;
+					namespace: string;
+					name: string;
+					forbidden: boolean;
+			  }
+			| undefined;
+		viewName?: string;
+		baserev?: string | undefined;
+		section?: boolean | undefined;
+		rev?: string | undefined;
+		children?: import('svelte').Snippet;
+	} = $props();
 
-	export let viewName: string = 'wiki';
-	export let baserev: string | undefined = undefined;
-	export let section: boolean | undefined = undefined;
-	export let rev: string | undefined = undefined;
-
-	$: namespacePrefix = wiki?.namespace ? `${wiki.namespace}:` : '';
-	$: displayTitle = wiki ? `${namespacePrefix}${wiki.title}` : $page.data.title;
+	let namespacePrefix = $derived(wiki?.namespace ? `${wiki.namespace}:` : '');
+	let displayTitle = $derived(wiki ? `${namespacePrefix}${wiki.title}` : $page.data.title);
 
 	function getSubtitle() {
 		switch (viewName) {
@@ -63,11 +73,11 @@
 </script>
 
 <div class="liberty-content-header">
-	<slot />
+	{@render children?.()}
 	<div class="title">
 		<h1>
 			{#if wiki && viewName !== 'error'}
-				<a href="/wiki/{wiki.name}">
+				<a href="/w/{joinName(wiki.namespace, wiki.title)}">
 					{#if wiki.namespace}
 						<span class="namespace">{wiki.namespace}:</span>
 					{/if}

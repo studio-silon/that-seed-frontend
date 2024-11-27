@@ -15,16 +15,6 @@
 	}
 
 	let getDataPromise = getData();
-
-	/*main.push({
-    to: doc_action_link(data.document, 'backlink'),
-    title: "역링크"
-  });
-  main.push({
-    to: doc_action_link(data.document, 'discuss'),
-    class: data.discuss_progress ? 'btn-discuss-progress' : null,
-    title: "토론"
-  });*/
 </script>
 
 {#await getDataPromise}
