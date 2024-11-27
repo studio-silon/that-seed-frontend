@@ -4,7 +4,7 @@
 
 # Made By theseeduse + uiovasot
 
-# 가장 the seed다운 the seed 모방 엔진, that seed. 단 정좆은 못씀 z
+# 가장 the seed다운 the seed 모방 엔진, that seed. 단 정ㅈ은 못씀 z
 ## 사용법
 
 git clone 먼저 하고
