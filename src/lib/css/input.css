@@ -23,3 +23,9 @@
 	line-height: 1.5;
 	padding: 0.25rem 0.5rem;
 }
+
+:global(.theseed-dark-mode) .seed-edit-input,
+:global(.theseed-dark-mode) .seed-log-input {
+	background-color: #2b2b2b;
+	color: #fff;
+}

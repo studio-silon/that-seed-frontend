@@ -1,18 +1,17 @@
 <script lang="ts">
-	export let engine_v: string;
-	export let back_v: string;
-	export let front_v: string;
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 
 	let skin_name = 'Liberty';
 </script>
 
 <h1>that seed</h1>
-<h2>Version: v{engine_v}</h2>
+<h2>Version: v{data.engine_v}</h2>
 <ul>
-	<li>Backend: v{back_v}</li>
-	<li>Frontend: v{front_v}</li>
+	<li>Backend: v{data.back_v}</li>
+	<li>Frontend: v{data.front_v}</li>
 	<li>Skin: {skin_name}</li>
-	<li></li>
 </ul>
 <h1>Contributors</h1>
 <ul>
