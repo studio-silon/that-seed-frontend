@@ -30,7 +30,7 @@
 	<ContentHeader
 		wiki={data.wiki}
 		{name}
-		{...data.wiki && rever && data.wiki.rever > +rever ? { baserev: rever } : {}}
+		{...data.wiki && rever && data.wiki.rever > +rever ? { rev: rever } : {}}
 	>
 		<ContentTools
 			tools={[

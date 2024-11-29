@@ -242,4 +242,43 @@ export class Backend {
 
 		return response.ok;
 	}
+
+	async login(username: string, password: string) {
+		const response = await fetch('/api/login/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			credentials: 'include',
+			body: new URLSearchParams({
+				username,
+				password
+			})
+		});
+
+		console.log(response.headers.entries());
+
+		return response.ok;
+	}
+
+	async signup(username: string, password: string) {
+		const response = await fetch('/api/signup/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				username,
+				password
+			})
+		});
+
+		return response.ok;
+	}
+
+	async logout() {
+		const response = await fetch('/api/logout/');
+
+		return response.ok;
+	}
 }

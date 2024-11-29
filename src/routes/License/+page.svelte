@@ -15,7 +15,7 @@
 </ul>
 <h1>Contributors</h1>
 <ul>
-	<li><a href="//github.com/1ongames">iongames</a> (frontend & backend)</li>
+	<li><a href="//github.com/1ongames">iongames</a> (frontend)</li>
 	<li><a href="//github.com/uiovasot">uiovasot</a> (frontend & backend & render)</li>
 </ul>
 <h2>Super Thanks</h2>

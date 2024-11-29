@@ -78,7 +78,7 @@
 								>
 							{/if})
 						</span> <b>r{version.rever}</b>
-						(<ReverMiniDiff {version} className="rever-mini-diff" />)
+						<span>(<ReverMiniDiff {version} className="rever-mini-diff" />)</span>
 						{#if version.user}
 							{version.user.username}
 						{:else}
@@ -101,5 +101,6 @@
 <style>
 	:global(.rever-mini-diff) {
 		margin: 0 !important;
+		font-size: 1em !important;
 	}
 </style>

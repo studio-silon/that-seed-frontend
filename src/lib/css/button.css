@@ -1,5 +1,5 @@
 .seed-button {
-	border: 0.0625rem solid #0275d8;
+	border: 1px solid #0275d8;
 	cursor: pointer;
 	display: inline-block;
 	font-size: 1rem;
@@ -34,6 +34,19 @@
 .seed-button.sky:not([disabled]):hover {
 	background-color: #31b0d5;
 	border-color: #2aabd2;
+}
+
+.seed-button.outline {
+	background-color: #fff;
+	border-color: #b1b1b1;
+	color: #000;
+}
+
+.seed-button.outline:not([disabled]):active,
+.seed-button.outline:not([disabled]):hover {
+	background-color: #dbdbdb;
+	border-color: #b1b1b1;
+	color: #000;
 }
 
 .seed-button.green {
