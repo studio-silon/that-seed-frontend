@@ -27,7 +27,11 @@
 {#await getDataPromise}
 	loading...
 {:then data}
-	<ContentHeader wiki={data.wiki} {name}>
+	<ContentHeader
+		wiki={data.wiki}
+		{name}
+		{...data.wiki && rever && data.wiki.rever > +rever ? { baserev: rever } : {}}
+	>
 		<ContentTools
 			tools={[
 				{
