@@ -52,7 +52,7 @@
 {#await getDataPromise}
 	loading...
 {:then data}
-	<ContentHeader wiki={data.wiki}>
+	<ContentHeader wiki={data.wiki} {name}>
 		<ContentTools
 			tools={[
 				{

@@ -37,7 +37,7 @@
 
 	onMount(() => {
 		applyCSSVariables(theme);
-		isDark = localStorage.getItem('darkMode') ? !+localStorage.getItem('darkMode')! : true;
+		isDark = localStorage.getItem('darkMode') ? !+localStorage.getItem('darkMode')! : false;
 		applyDarkMode();
 	});
 </script>

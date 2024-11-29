@@ -21,7 +21,7 @@
 		}>;
 	} = $props();
 
-	let dropdownOpen = false;
+	let dropdownOpen = $state(false);
 
 	function toggleDropdown() {
 		dropdownOpen = !dropdownOpen;
@@ -45,6 +45,7 @@
 					href={tool.to}
 					class="btn btn-secondary tools-btn {tool.class || ''}"
 					title={tool.tooltip}
+					onclick={tool.onclick}
 				>
 					{#if tool.html}
 						{@html tool.html}
@@ -69,7 +70,9 @@
 								{#if item.onclick}
 									<button
 										class="dropdown-item {item.class || ''}"
-										on:click|preventDefault={() => {
+										onclick={(e) => {
+											e.preventDefault();
+
 											item.onclick?.();
 											dropdownOpen = false;
 										}}
@@ -80,7 +83,7 @@
 									<a
 										href={item.to}
 										class="dropdown-item {item.class || ''}"
-										on:click={() => (dropdownOpen = false)}
+										onclick={() => (dropdownOpen = false)}
 									>
 										{item.title}
 									</a>
@@ -106,8 +109,8 @@
 		padding: 0.4rem 0.8rem;
 	}
 
-	.content-tools .tools-btn:deep.fa-star,
-	.content-tools .tools-btn:deep.fa-star-o {
+	.content-tools .tools-btn :global(.fa-star),
+	.content-tools .tools-btn :global(.fa-star-o) {
 		color: #ff6200;
 		margin-right: 0.1em;
 	}
@@ -131,9 +134,9 @@
 		transition: 0s;
 	}
 
-	.theseed-dark-mode .content-tools .tools-btn:active,
-	.theseed-dark-mode .content-tools .tools-btn:focus,
-	.theseed-dark-mode .content-tools .tools-btn:hover {
+	:global(.theseed-dark-mode) .content-tools .tools-btn:active,
+	:global(.theseed-dark-mode) .content-tools .tools-btn:focus,
+	:global(.theseed-dark-mode) .content-tools .tools-btn:hover {
 		background-color: #383b40;
 		color: white;
 	}
@@ -147,10 +150,10 @@
 		color: white;
 	}
 
-	.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn,
-	.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:hover,
-	.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:active,
-	.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:focus {
+	:global(.theseed-dark-mode) .content-tools .btn.btn-danger.tools-btn,
+	:global(.theseed-dark-mode) .content-tools .btn.btn-danger.tools-btn:hover,
+	:global(.theseed-dark-mode) .content-tools .btn.btn-danger.tools-btn:active,
+	:global(.theseed-dark-mode) .content-tools .btn.btn-danger.tools-btn:focus {
 		background-color: #d9534f;
 		color: #ddd;
 	}
@@ -159,7 +162,7 @@
 		background-color: #bbeabb;
 	}
 
-	.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress {
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-discuss-progress {
 		background-color: #325a56;
 	}
 
@@ -169,9 +172,9 @@
 		background-color: #c5f4c5;
 	}
 
-	.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:hover,
-	.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:active,
-	.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:focus {
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-discuss-progress:hover,
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-discuss-progress:active,
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-discuss-progress:focus {
 		background-color: #438a83;
 	}
 
@@ -181,7 +184,7 @@
 		border-color: #78d4ef;
 	}
 
-	.theseed-dark-mode .content-tools .tools-btn.btn-info {
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-info {
 		background-color: #334351;
 	}
 
@@ -192,9 +195,9 @@
 		border-color: #51c8eb;
 	}
 
-	.theseed-dark-mode .content-tools .tools-btn.btn-info:hover,
-	.theseed-dark-mode .content-tools .tools-btn.btn-info:focus,
-	.theseed-dark-mode .content-tools .tools-btn.btn-info:active {
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-info:hover,
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-info:focus,
+	:global(.theseed-dark-mode) .content-tools .tools-btn.btn-info:active {
 		background-color: #2a343d;
 	}
 
@@ -212,13 +215,13 @@
 		background-color: #ab0000;
 	}
 
-	.theseed-dark-mode .dropdown-item.admin {
+	:global(.theseed-dark-mode) .dropdown-item.admin {
 		background-color: #711;
 		color: white;
 		border-top: 1px var(--liberty-brand-dark-color, #16171a) solid;
 	}
 
-	.theseed-dark-mode .dropdown-item.admin:hover {
+	:global(.theseed-dark-mode) .dropdown-item.admin:hover {
 		background-color: #970000;
 	}
 </style>

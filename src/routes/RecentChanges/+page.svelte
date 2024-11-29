@@ -1,11 +1,16 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Backend } from '$lib/backend';
 	import { formatRelativeDate } from '$lib/utils/date';
+	import NavButton from '../../component/NavButton.svelte';
+	import ReverMiniDiff from '../../component/ReverMiniDiff.svelte';
 
 	const backend = new Backend(fetch);
 
+	const index = +($page.url.searchParams.get('page') ?? '1');
+
 	async function getData() {
-		return await backend.getRecentChanges();
+		return await backend.getRecentChanges(index);
 	}
 
 	let getDataPromise = getData();
@@ -14,28 +19,25 @@
 <div class="liberty-content-header"><div class="title"><h1>최근 변경내역</h1></div></div>
 <div class="liberty-content-main wiki-article">
 	<div class="change-history-list">
-		<div class="header-row">
-			<div class="change-column">문서</div>
-			<div class="change-column">기능</div>
-			<div class="change-column">수정자</div>
-			<div class="change-column">수정 시간</div>
-		</div>
-
 		{#await getDataPromise}
 			<div class="change-column">Loading...</div>
 		{:then data}
+			<NavButton
+				prevURL={index > 1 ? '?page=' + (index - 1) : undefined}
+				nextURL={index < data.totalPages ? '?page=' + (index + 1) : undefined}
+			/>
+			<div class="header-row">
+				<div class="change-column">문서</div>
+				<div class="change-column">기능</div>
+				<div class="change-column">수정자</div>
+				<div class="change-column">수정 시간</div>
+			</div>
 			{#each data.changes as change}
 				<div class="change-row">
 					<div class="change-column">
 						<a href="/w/{change.title}">{change.title}</a>
 						{#if change.versions && change.versions[0]}
-							<span
-								class="version-type-indicator {change.versions[0].type > 0
-									? 'positive-change'
-									: 'negative-change'}"
-							>
-								{change.versions[0].type}
-							</span>
+							<ReverMiniDiff version={change.versions[0]} />
 						{/if}
 					</div>
 
@@ -92,27 +94,13 @@
 	}
 
 	.change-row {
-		border-bottom: 1px solid #e0e0e0;
+		border-top: 1px solid #e0e0e0;
 		display: grid;
 		grid-template-columns: 1fr 10rem 11rem 13rem;
 	}
 
 	.change-column {
 		padding: 0.5rem 0.75rem;
-	}
-
-	.version-type-indicator {
-		font-size: 0.8rem;
-		margin: 0 0 0 0.35rem;
-		vertical-align: bottom;
-	}
-
-	.positive-change {
-		color: green;
-	}
-
-	.negative-change {
-		color: red;
 	}
 
 	.action-links {
@@ -140,6 +128,9 @@
 
 	.change-log {
 		font-size: 0.9rem;
+		padding-top: 0;
+		padding-left: 1.5rem;
+		color: #787878;
 	}
 
 	@media screen and (max-width: 1023.98px) {
@@ -179,7 +170,7 @@
 			order: 0;
 			font-size: 1.15rem;
 			margin: 0;
-			margin-bottom: 0.7rem;
+			margin-bottom: 0.3rem;
 			padding: 0;
 		}
 
@@ -193,6 +184,11 @@
 		.change-column:nth-child(3) {
 			margin-left: auto;
 			margin-top: -1.65rem;
+		}
+
+		.change-log {
+			order: 1;
+			padding: 0;
 		}
 
 		.action-links {

@@ -10,8 +10,15 @@
 	const name = $page.params.name;
 	const url = urlEncoding(name);
 
+	const rever = $page.url.searchParams.get('rev');
+
+	let isStared = $state(false);
+
 	async function getData() {
-		return await backend.getDocs(name);
+		const data = await backend.getDocs(name, rever);
+		isStared = data.isStared;
+
+		return data;
 	}
 
 	let getDataPromise = getData();
@@ -20,9 +27,15 @@
 {#await getDataPromise}
 	loading...
 {:then data}
-	<ContentHeader wiki={data.wiki}>
+	<ContentHeader wiki={data.wiki} {name}>
 		<ContentTools
 			tools={[
+				{
+					onclick: async () => {
+						if (await backend.toggleStar(name)) isStared = !isStared;
+					},
+					html: `<span class="fa fa-star${isStared ? '' : '-o'}"></span>${data.wiki ? ` <span class="star-count">${data.wiki.stars.length + (data.isStared ? (isStared ? 0 : -1) : isStared ? 1 : 0)}</span>` : ''}`
+				},
 				{
 					to: '/edit/' + url,
 					title: '편집'
@@ -51,6 +64,11 @@
 		/>
 	</ContentHeader>
 	<div class="liberty-content-main wiki-article">
+		{#if data.wiki && rever && data.wiki.rever > +rever}
+			<div class="alert alert-danger">
+				<b>[주의!]</b> 문서의 이전 버전(<b>r{rever}</b>)을 보고 있습니다. 최신 버전으로 이동
+			</div>
+		{/if}
 		<div class="wiki">
 			{@html data.parse?.value}
 		</div>

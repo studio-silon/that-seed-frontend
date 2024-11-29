@@ -1,3 +1,16 @@
 .seed-flex {
 	display: flex;
 }
+
+.seed-center {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.-seed-ml-5 {
+	margin-left: -5px;
+}
+
+.-seed-mr-5 {
+	margin-right: -5px;
+}

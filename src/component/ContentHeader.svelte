@@ -4,6 +4,7 @@
 
 	let {
 		wiki,
+		name,
 		viewName = 'wiki',
 		baserev,
 		section,
@@ -16,9 +17,9 @@
 					title: string;
 					namespace: string;
 					name: string;
-					forbidden: boolean;
 			  }
 			| undefined;
+		name?: string;
 		viewName?: string;
 		baserev?: string | undefined;
 		section?: boolean | undefined;
@@ -27,7 +28,7 @@
 	} = $props();
 
 	let namespacePrefix = $derived(wiki?.namespace ? `${wiki.namespace}:` : '');
-	let displayTitle = $derived(wiki ? `${namespacePrefix}${wiki.title}` : $page.data.title);
+	let displayTitle = $derived(wiki ? `${namespacePrefix}${wiki.title}` : name);
 
 	function getSubtitle() {
 		switch (viewName) {

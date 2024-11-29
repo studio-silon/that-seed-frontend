@@ -32,8 +32,10 @@ export class Backend {
 		};
 	}
 
-	async getRecentChanges() {
-		const response = await this.fetch('/api/recentChanges?_data=routes%2FrecentChanges');
+	async getRecentChanges(index: number = 1) {
+		const response = await this.fetch(
+			'/api/recentChanges?_data=routes%2FrecentChanges&page=' + index
+		);
 
 		const json = await response.json();
 
@@ -53,6 +55,8 @@ export class Backend {
 					log: string;
 					type: number;
 					data: string;
+					added: number;
+					removed: number;
 					content: string;
 					createdAt: string;
 					wikiId: number;
@@ -68,8 +72,13 @@ export class Backend {
 		};
 	}
 
-	async getDocs(page: string) {
-		const response = await fetch('/api/wiki/' + urlEncoding(page) + '?_data=routes%2Fwiki.%24');
+	async getDocs(page: string, rever?: string | null) {
+		const response = await fetch(
+			'/api/wiki/' +
+				urlEncoding(page) +
+				'?_data=routes%2Fwiki.%24' +
+				(typeof rever === 'string' ? '&rever=' + rever : '')
+		);
 		if (!response.ok || !response.body) {
 			throw new Error('Network response was not ok');
 		}
@@ -101,11 +110,14 @@ export class Backend {
 						forbidden: boolean;
 						content: string;
 						discussions?: { id: number }[];
+						stars: { id: number }[];
+						rever: number;
 				  }
 				| undefined,
 			canEdit: Boolean(jsonData.canEdit),
 			canMove: Boolean(jsonData.canMove),
 			canDelete: Boolean(jsonData.canDelete),
+			isStared: Boolean(jsonData.isStared),
 			editRequests: jsonData.editRequests.map((req: any) => ({
 				id: +req.id,
 				wikiId: +req.wikiId,
@@ -129,6 +141,54 @@ export class Backend {
 						backlinks: string[];
 				  }
 				| undefined
+		};
+	}
+
+	async toggleStar(page: string) {
+		const response = await fetch('/api/wiki/' + urlEncoding(page), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				actionType: 'toggle_star'
+			})
+		});
+
+		return response.ok;
+	}
+
+	async getHistory(page: string, index: number = 1) {
+		const response = await fetch(
+			'/api/history/' + urlEncoding(page) + '?_data=routes%2Fhistory.%24&page=' + index
+		);
+
+		const json = await response.json();
+
+		return json as {
+			wiki: {
+				id: number;
+				title: string;
+				namespace: string;
+				versions: {
+					id: number;
+					rever: number;
+					log: string;
+					type: number;
+					data: string;
+					added: number;
+					removed: number;
+					content: string;
+					createdAt: string;
+					wikiId: number;
+					userId: number;
+					ipAddress: string;
+					user?: {
+						username: string;
+					};
+				}[];
+			};
+			totalPages: number;
 		};
 	}
 
