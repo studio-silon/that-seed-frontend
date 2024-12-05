@@ -144,6 +144,26 @@ export class Backend {
 		};
 	}
 
+	async getDiff(page: string, original: number, modified: number) {
+		const response = await this.fetch(
+			'/api/diff/' +
+				urlEncoding(page) +
+				'?_data=routes%2Fdiff.%24&original=' +
+				original +
+				'&modified=' +
+				modified
+		);
+
+		if (!response.ok) throw new Error(response.statusText);
+
+		const json = await response.json();
+
+		return json as {
+			original: string;
+			modified: string;
+		};
+	}
+
 	async toggleStar(page: string) {
 		const response = await fetch('/api/wiki/' + urlEncoding(page), {
 			method: 'POST',
@@ -162,6 +182,8 @@ export class Backend {
 		const response = await fetch(
 			'/api/history/' + urlEncoding(page) + '?_data=routes%2Fhistory.%24&page=' + index
 		);
+
+		if (!response.ok) throw new Error(response.statusText);
 
 		const json = await response.json();
 
@@ -206,7 +228,7 @@ export class Backend {
 			})
 		});
 
-		return response.ok;
+		if (!response.ok) throw new Error(response.statusText);
 	}
 
 	async deleteDocs(page: string, log: string) {
@@ -223,7 +245,7 @@ export class Backend {
 			})
 		});
 
-		return response.ok;
+		if (!response.ok) throw new Error(response.statusText);
 	}
 
 	async moveDocs(page: string, title: string, content: string, log: string) {
@@ -240,7 +262,7 @@ export class Backend {
 			})
 		});
 
-		return response.ok;
+		if (!response.ok) throw new Error(response.statusText);
 	}
 
 	async login(username: string, password: string) {
@@ -256,9 +278,7 @@ export class Backend {
 			})
 		});
 
-		console.log(response.headers.entries());
-
-		return response.ok;
+		return response.status !== 400;
 	}
 
 	async signup(username: string, password: string) {
@@ -273,7 +293,7 @@ export class Backend {
 			})
 		});
 
-		return response.ok;
+		return response.status !== 400;
 	}
 
 	async logout() {

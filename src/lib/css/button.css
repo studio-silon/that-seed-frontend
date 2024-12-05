@@ -14,8 +14,6 @@
 	white-space: nowrap;
 	background-color: #0275d8;
 	color: #fff;
-	width: 100px;
-	margin-left: auto;
 }
 
 .seed-button:not([disabled]):active,

@@ -1,15 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Backend } from '$lib/backend';
+	import { dataStore, type DataStoreType } from '$lib/stores/data';
 	import { urlEncoding } from '$lib/utils/wiki';
 
-	async function run() {
-		const backend = new Backend(fetch);
+	let siteData: DataStoreType;
 
-		const data = await backend.getData();
+	dataStore.subscribe((data) => {
+		siteData = data;
 
-		goto('/w/' + urlEncoding(data.site.frontPage));
-	}
+		if (!siteData) {
+			console.error('Site data is not loaded yet.');
+			return;
+		}
 
-	run();
+		goto('/w/' + urlEncoding(siteData.site.frontPage));
+	});
 </script>

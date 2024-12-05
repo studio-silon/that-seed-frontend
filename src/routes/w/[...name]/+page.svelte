@@ -2,15 +2,16 @@
 	import { page } from '$app/stores';
 	import { Backend } from '$lib/backend';
 	import { urlEncoding } from '$lib/utils/wiki';
+	import { onDestroy } from 'svelte';
 	import ContentHeader from '../../../component/ContentHeader.svelte';
 	import ContentTools from '../../../component/ContentTools.svelte';
 
 	const backend = new Backend(fetch);
 
-	const name = $page.params.name;
-	const url = urlEncoding(name);
+	let name = $state($page.params.name);
+	let url = $state((() => urlEncoding(name))());
 
-	const rever = $page.url.searchParams.get('rev');
+	let rever = $state($page.url.searchParams.get('rev'));
 
 	let isStared = $state(false);
 
@@ -21,7 +22,16 @@
 		return data;
 	}
 
-	let getDataPromise = getData();
+	let getDataPromise: ReturnType<typeof getData> = $state(getData());
+
+	let unsubscribe = page.subscribe(($page) => {
+		name = $page.params.name;
+		url = urlEncoding(name);
+		rever = $page.url.searchParams.get('rev');
+		getDataPromise = getData();
+	});
+
+	onDestroy(() => unsubscribe());
 </script>
 
 {#await getDataPromise}
@@ -70,7 +80,8 @@
 	<div class="liberty-content-main wiki-article">
 		{#if data.wiki && rever && data.wiki.rever > +rever}
 			<div class="alert alert-danger">
-				<b>[주의!]</b> 문서의 이전 버전(<b>r{rever}</b>)을 보고 있습니다. 최신 버전으로 이동
+				<b>[주의!]</b> 문서의 이전 버전(<b>r{rever}</b>)을 보고 있습니다.
+				<a href={'/w/' + url} class="alert-link">최신 버전으로 이동</a>
 			</div>
 		{/if}
 		<div class="wiki">

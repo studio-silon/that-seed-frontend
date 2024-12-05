@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { diffChars, type Change } from 'diff';
 
-	let text1: string = ``;
-	let text2: string = ``;
+	let {
+		original = '',
+		modified = '',
+		oldrever = 1,
+		rever = 2
+	}: {
+		original?: string;
+		modified?: string;
+		oldrever?: number | string | null;
+		rever?: number | string | null;
+	} = $props();
 
-	const lines1 = text1.split('\n');
-	const lines2 = text2.split('\n');
+	const lines1 = original.split('\n');
+	const lines2 = modified.split('\n');
 
 	const maxLines = Math.max(lines1.length, lines2.length);
 	const diffResult: {
@@ -21,7 +30,13 @@
 		const line2 = lines2[i] || '';
 		const lineDiff = diffChars(line1, line2);
 
-		diffResult.push({ line1, line2, diff: lineDiff, index1: i + 1, index2: i + 1 });
+		diffResult.push({
+			line1,
+			line2,
+			diff: lineDiff,
+			index1: i + 1,
+			index2: i + 1
+		});
 	}
 
 	const getDisplayDiff = () => {
@@ -54,7 +69,6 @@
 
 		for (let i = startLine; i <= endLine; i++) {
 			const { line1, line2, diff, index1, index2 } = diffResult[i];
-
 			displayLines.push({
 				line1,
 				line2,
@@ -75,13 +89,12 @@
 	};
 </script>
 
-<h3>Diff 결과</h3>
 <table class="diff inlinediff">
 	<thead>
 		<tr>
 			<th></th>
 			<th></th>
-			<th class="texttitle"> r2416 vs r2417</th>
+			<th class="texttitle"> r{oldrever} vs r{rever}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -90,6 +103,7 @@
 				<tr>
 					<th>...</th>
 					<th>...</th>
+					<td class="skip"></td>
 				</tr>
 			{:else}
 				<tr>
@@ -115,9 +129,9 @@
 </table>
 
 <style>
-	textarea {
-		width: 100%;
-		height: 100px;
-		margin-bottom: 10px;
+	@import '$lib/css/diff.css';
+
+	th {
+		white-space: nowrap;
 	}
 </style>

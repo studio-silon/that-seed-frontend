@@ -5,6 +5,7 @@
 	import SearchFrom from '../component/SearchFrom.svelte';
 	import theme from '../theme.json';
 	import RecentCard from '../component/RecentCard.svelte';
+	import { dataStore } from '$lib/stores/data';
 
 	const backend = new Backend(fetch);
 
@@ -45,6 +46,7 @@
 {#await getDataPromise}
 	loading...
 {:then data}
+	{dataStore.set(data)}
 	<div class="Liberty">
 		<div id="top"></div>
 		<link rel="shortcut icon" href="../lib/img/favicon.ico" />

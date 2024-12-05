@@ -92,11 +92,6 @@
 		float: right;
 	}
 
-	.seed-button {
-		margin-left: 0;
-		width: auto;
-	}
-
 	.seed-btns {
 		display: flex;
 		justify-content: end;

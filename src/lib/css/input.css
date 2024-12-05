@@ -26,6 +26,7 @@
 
 :global(.theseed-dark-mode) .seed-edit-input,
 :global(.theseed-dark-mode) .seed-log-input {
-	background-color: #2b2b2b;
+	background-color: #27292d;
+	border-color: #383b40;
 	color: #fff;
 }

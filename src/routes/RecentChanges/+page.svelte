@@ -26,6 +26,7 @@
 				prevURL={index > 1 ? '?page=' + (index - 1) : undefined}
 				nextURL={index < data.totalPages ? '?page=' + (index + 1) : undefined}
 			/>
+
 			<div class="header-row">
 				<div class="change-column">문서</div>
 				<div class="change-column">기능</div>
@@ -87,6 +88,7 @@
 	}
 
 	.header-row {
+		margin-top: 1rem;
 		border-bottom: 2px solid #e0e0e0;
 		font-weight: 600;
 		display: grid;
@@ -136,6 +138,10 @@
 	@media screen and (max-width: 1023.98px) {
 		.header-row {
 			display: none;
+		}
+
+		.wiki-article > div > div:nth-child(3) {
+			margin-top: 1rem;
 		}
 
 		.change-row {

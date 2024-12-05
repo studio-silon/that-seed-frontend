@@ -36,11 +36,7 @@
 		const formData = new FormData(event.target as HTMLFormElement);
 
 		try {
-			const result = await backend.editDocs(name, content, '' + formData.get('log'));
-
-			if (!result) {
-				throw new Error('.....');
-			}
+			await backend.editDocs(name, content, '' + formData.get('log'));
 		} catch (error) {
 			console.error('저장 중 오류 발생:', error);
 		}
@@ -52,7 +48,12 @@
 {#await getDataPromise}
 	loading...
 {:then data}
-	<ContentHeader wiki={data.wiki} {name}>
+	<ContentHeader
+		wiki={data.wiki}
+		{name}
+		viewName="edit"
+		baserev={data.wiki ? '' + data.wiki.rever : '0'}
+	>
 		<ContentTools
 			tools={[
 				{
@@ -164,6 +165,11 @@
 
 	@import '$lib/css/input.css';
 	@import '$lib/css/button.css';
+
+	.seed-button {
+		margin-left: auto;
+		width: 100px;
+	}
 
 	.wiki-preview {
 		height: 30rem;

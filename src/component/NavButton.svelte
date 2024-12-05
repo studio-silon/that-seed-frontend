@@ -8,7 +8,7 @@
 	} = $props();
 </script>
 
-<ul class="btn-group nav-button">
+<div class="btn-group nav-button">
 	<button
 		type="button"
 		class="btn btn-secondary btn-sm seed-flex"
@@ -52,12 +52,8 @@
 			/>
 		</svg>
 	</button>
-</ul>
+</div>
 
 <style>
 	@import '$lib/css/seed.css';
-
-	.nav-button {
-		margin-left: -2.2rem;
-	}
 </style>

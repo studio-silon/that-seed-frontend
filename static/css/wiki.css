@@ -133,18 +133,67 @@
 	line-height: 1.6;
 }
 
-.wiki .wiki-table,
-.wiki .wiki-table td {
-	border: 1px solid #e5e7eb;
-	background-color: #f9fafb;
-	padding: 0.5rem;
-	border-radius: 0.375rem;
+.wiki .wiki-size.size-up-1 {
+	font-size: 1.244em;
 }
 
-.wiki .wiki-table {
-	margin: 1rem 0;
-	border-collapse: separate;
-	border-spacing: 0;
+.wiki .wiki-size.size-up-2 {
+	font-size: 1.333em;
+}
+
+.wiki .wiki-size.size-up-3 {
+	font-size: 1.422em;
+}
+
+.wiki .wiki-size.size-up-4 {
+	font-size: 1.511em;
+}
+
+.wiki .wiki-size.size-up-5 {
+	font-size: 1.6em;
+}
+
+.wiki .wiki-size.size-down-1 {
+	font-size: 0.889em;
+}
+
+.wiki .wiki-size.size-down-2 {
+	font-size: 0.8em;
+}
+
+.wiki .wiki-size.size-down-3 {
+	font-size: 0.711em;
+}
+
+.wiki .wiki-size.size-down-4 {
+	font-size: 0.622em;
+}
+
+.wiki .wiki-size.size-down-5 {
+	font-size: 0.533em;
+}
+
+.wiki-table {
+	border: 1px solid #d1d5db;
+	background-color: #f9fafb;
+	color: #374151;
+	border-width: 1px;
+	border-collapse: collapse;
+}
+
+.wiki-table tr,
+.wiki-table td {
+	padding: 0.3rem;
+}
+
+.table-center,
+.table-center .wiki-table {
+	float: center;
+}
+
+.table-right,
+.table-right .wiki-table {
+	float: right;
 }
 
 .wiki .wiki-macro-toc {
@@ -209,8 +258,17 @@
 		background-color: #1f2937;
 	}
 
-	.wiki .wiki-table,
-	.wiki .wiki-table td {
+	/*.wiki .wiki-table,
+        .wiki .wiki-table td {
+            border-color: #374151;
+            background-color: #1f2937;
+        }
+
+        .wiki-table {
+            border-radius: 7px;
+        }*/
+
+	.wiki-table {
 		border-color: #374151;
 		background-color: #1f2937;
 	}

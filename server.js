@@ -10,7 +10,7 @@ async function startRemix() {
 		express.static('./not-seed/build/client/assets', { immutable: true, maxAge: '1y' })
 	);
 	app.use('/api', express.static('./not-seed/build/client', { maxAge: '1h' }));
-	app.use('/api', express.static('public', { maxAge: '1h' }));
+	app.use('/', express.static('public', { maxAge: '1h' }));
 
 	const remixHandler = createRequestHandler({
 		build: await import('./not-seed/build/server/index.js')

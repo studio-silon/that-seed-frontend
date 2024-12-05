@@ -6,7 +6,7 @@ body.theseed-dark-mode {
 }
 
 .theseed-dark-mode pre {
-    background-color: #2d2f34;
+	background-color: #2d2f34;
 }
 
 .theseed-dark-mode .Liberty .content-wrapper .liberty-content .liberty-content-header {
@@ -32,7 +32,7 @@ body.theseed-dark-mode {
 }
 
 .theseed-dark-mode .Liberty .nav-wrapper .navbar .navbar-nav .nav-item .nav-link:hover {
-    background-color: #383b40;
+	background-color: #383b40;
 }
 
 .theseed-dark-mode .Liberty .content-wrapper .liberty-content .liberty-content-header,
@@ -41,10 +41,38 @@ body.theseed-dark-mode {
 	border-color: #777;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-content .live-recent-list li,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-footer,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-content {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-content
+	.live-recent-list
+	li,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-footer,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-content {
 	border-color: #777;
 }
 
@@ -59,20 +87,39 @@ body.theseed-dark-mode {
 }
 
 .theseed-dark-mode .dropdown-menu.dropdown-menu-right {
-	background: #16171A;
+	background: #16171a;
 }
 
 .theseed-dark-mode .Liberty .nav-wrapper .navbar .navbar-login .login-dropdown-menu .username,
-.theseed-dark-mode .Liberty .nav-wrapper .navbar .navbar-login .login-dropdown-menu .username:hover {
+.theseed-dark-mode
+	.Liberty
+	.nav-wrapper
+	.navbar
+	.navbar-login
+	.login-dropdown-menu
+	.username:hover {
 	color: #ddd;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-content .liberty-content-header .title .namespace {
-    color: #c7c7c7;
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-content
+	.liberty-content-header
+	.title
+	.namespace {
+	color: #c7c7c7;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-content .liberty-content-header .title>h1>a {
-    color: white;
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-content
+	.liberty-content-header
+	.title
+	> h1
+	> a {
+	color: white;
 }
 
 .theseed-dark-mode a.dropdown-item {
@@ -84,15 +131,60 @@ body.theseed-dark-mode {
 	background-color: #383b40;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link.active,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link:active,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link:focus,
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link:hover {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item
+	.nav-link.active,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item
+	.nav-link:active,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item
+	.nav-link:focus,
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item
+	.nav-link:hover {
 	background: black;
 	color: #ddd;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link.active::before {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-header
+	.nav
+	.nav-item
+	.nav-link.active::before {
 	border-color: #e1e8ed;
 }
 
@@ -100,24 +192,44 @@ body.theseed-dark-mode {
 	background-color: black;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-footer {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-footer {
 	background-color: black;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-footer .label {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-footer
+	.label {
 	background-color: #2d2f34;
 }
 
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-footer .label:hover {
+.theseed-dark-mode
+	.Liberty
+	.content-wrapper
+	.liberty-sidebar
+	.liberty-right-fixed
+	.live-recent
+	.live-recent-footer
+	.label:hover {
 	background-color: #383b40;
 }
 
 .theseed-dark-mode .dropdown-menu {
-	background-color: #16171A;
+	background-color: #16171a;
 }
 
 .theseed-dark-mode a {
-	color: #E69720;
+	color: #e69720;
 }
 
 .theseed-dark-mode a:hover {
@@ -145,5 +257,27 @@ body.theseed-dark-mode {
 }
 
 .theseed-dark-mode div#bottom a {
-	color: #E69720;
+	color: #e69720;
+}
+
+/* added */
+.theseed-dark-mode .wiki-article form div.bordered {
+	border-color: #383b40;
+}
+
+.theseed-dark-mode ul.nav-tabs {
+	border-bottom: 1px solid #383b40;
+}
+
+.theseed-dark-mode ul.nav-tabs > li.nav-item > .nav-link {
+	border-color: #383b40 #383b40 transparent;
+	color: #ddd;
+}
+
+.theseed-dark-mode ul.nav-tabs > li.nav-item > .nav-link.active {
+	background-color: #27292d;
+}
+
+.theseed-dark-mode ul.nav-tabs > li.nav-item > .nav-link > form > button {
+	color: #ddd;
 }

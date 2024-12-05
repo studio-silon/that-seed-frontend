@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Backend } from '$lib/backend';
 	import { formatDate } from '$lib/utils/date';
@@ -12,6 +13,8 @@
 
 	const name = $page.params.name;
 	const url = urlEncoding(name);
+
+	let selectedRevisions: [null | number, null | number] = $state([null, null]);
 
 	const index = +($page.url.searchParams.get('page') ?? '1');
 
@@ -61,6 +64,20 @@
 				nextURL={index < history.totalPages ? '?page=' + (index + 1) : undefined}
 			/>
 
+			<p>
+				<button
+					onclick={() => {
+						if (selectedRevisions[0] && selectedRevisions[1]) {
+							const [first, second] = selectedRevisions;
+							goto(`/diff/${url}?rev=${first}&oldrev=${second}`);
+						}
+					}}
+					class="btn btn-secondary btn-sm"
+				>
+					선택한 리버전 비교
+				</button>
+			</p>
+
 			<ul>
 				{#each history.wiki.versions as version}
 					<li>
@@ -77,7 +94,25 @@
 									href="/diff/{url}?rev={version.rever}&oldrev={version.rever - 1}">비교</a
 								>
 							{/if})
-						</span> <b>r{version.rever}</b>
+						</span>
+
+						{#if !selectedRevisions[1] || version.rever < selectedRevisions[1]}<input
+								type="radio"
+								name="first"
+								checked={selectedRevisions[0] === version.rever}
+								onchange={() => (selectedRevisions[0] = version.rever)}
+							/>{:else}<span style="display: inline-block; width: 21px;"></span>
+						{/if}{#if !selectedRevisions[0] || version.rever > selectedRevisions[0]}<input
+								type="radio"
+								name="second"
+								checked={selectedRevisions[1] === version.rever}
+								onchange={() => (selectedRevisions[1] = version.rever)}
+							/>
+						{:else}
+							<span style="display: inline-block; width: 21px;"></span>
+						{/if}
+
+						<b>r{version.rever}</b>
 						<span>(<ReverMiniDiff {version} className="rever-mini-diff" />)</span>
 						{#if version.user}
 							{version.user.username}
@@ -90,6 +125,11 @@
 					</li>
 				{/each}
 			</ul>
+
+			<NavButton
+				prevURL={index > 1 ? '?page=' + (index - 1) : undefined}
+				nextURL={index < history.totalPages ? '?page=' + (index + 1) : undefined}
+			/>
 		{:catch someError}
 			System error: {someError.message}.
 		{/await}

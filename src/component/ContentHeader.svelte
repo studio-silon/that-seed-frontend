@@ -13,10 +13,8 @@
 	}: {
 		wiki:
 			| {
-					id: number;
 					title: string;
 					namespace: string;
-					name: string;
 			  }
 			| undefined;
 		name?: string;
@@ -87,6 +85,7 @@
 				<small>{getSubtitle()}</small>
 			{:else}
 				{displayTitle}
+				<small>{getSubtitle()}</small>
 			{/if}
 		</h1>
 	</div>
