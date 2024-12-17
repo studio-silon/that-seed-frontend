@@ -57,7 +57,7 @@
 			</label>
 		</div>
 
-		<a href="/member/recover_password" class="recover_password">[아이디/비밀번호 찾기]</a> <br />
+		<a href="/member/recover_password" class="recover_password">비밀번호를 잊어버리셨나요?</a> <br />
 
 		<div class="seed-btns">
 			<a href="/member/signup" class="seed-button outline">계정 만들기</a>
