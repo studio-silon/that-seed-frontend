@@ -12,9 +12,9 @@
 	async function getData() {
 		return await backend.getData();
 	}
-	let getDataPromise = getData();
 
 	let isDark = $state(false);
+	let data: Awaited<ReturnType<typeof getData>> | null = $state(null);
 
 	const applyCSSVariables = (theme: Record<string, string>) => {
 		const root = document.documentElement;
@@ -36,17 +36,28 @@
 		}
 	};
 
+	$effect(() => {
+		const unsubscribe = dataStore.subscribe((newData) => {
+			data = newData;
+		});
+
+		return () => unsubscribe();
+	});
+
 	onMount(() => {
 		applyCSSVariables(theme);
 		isDark = localStorage.getItem('darkMode') ? !+localStorage.getItem('darkMode')! : false;
 		applyDarkMode();
+		getData().then((newData) => {
+			data = newData;
+			dataStore.set(newData);
+		});
 	});
 </script>
 
-{#await getDataPromise}
+{#if data === null}
 	loading...
-{:then data}
-	{dataStore.set(data)}
+{:else}
 	<div class="Liberty">
 		<div id="top"></div>
 		<link rel="shortcut icon" href="../lib/img/favicon.ico" />
@@ -143,9 +154,9 @@
 									>내 토론 기여 목록</a
 								>
 								<div class="dropdown-divider"></div>
-								<a href="/logout" class="dropdown-item">로그아웃</a>
+								<a href="/member/logout" class="dropdown-item">로그아웃</a>
 							{:else}
-								<a href="/login" class="dropdown-item">로그인</a>
+								<a href="/member/login" class="dropdown-item">로그인</a>
 							{/if}
 						</div>
 					</Dropdown>
@@ -187,6 +198,4 @@
 			</div>
 		</div>
 	</div>
-{:catch someError}
-	System error: {someError.message}.
-{/await}
+{/if}

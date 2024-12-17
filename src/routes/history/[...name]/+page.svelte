@@ -61,7 +61,7 @@
 		{:then history}
 			<NavButton
 				prevURL={index > 1 ? '?page=' + (index - 1) : undefined}
-				nextURL={index < history.totalPages ? '?page=' + (index + 1) : undefined}
+				nextURL={index < history.data.totalPages ? '?page=' + (index + 1) : undefined}
 			/>
 
 			<p>
@@ -79,7 +79,7 @@
 			</p>
 
 			<ul>
-				{#each history.wiki.versions as version}
+				{#each history.data.wiki.versions as version}
 					<li>
 						{formatDate(new Date(version.createdAt))}
 						<span style="font-size: 8pt;">
@@ -128,7 +128,7 @@
 
 			<NavButton
 				prevURL={index > 1 ? '?page=' + (index - 1) : undefined}
-				nextURL={index < history.totalPages ? '?page=' + (index + 1) : undefined}
+				nextURL={index < history.data.totalPages ? '?page=' + (index + 1) : undefined}
 			/>
 		{:catch someError}
 			System error: {someError.message}.

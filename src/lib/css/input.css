@@ -12,7 +12,7 @@
 	box-shadow: none;
 }
 
-.seed-log-input {
+.seed-input {
 	background-color: #fff;
 	background-image: none;
 	border: 0.0625rem solid #ccc;
@@ -24,8 +24,12 @@
 	padding: 0.25rem 0.5rem;
 }
 
+.seed-input.big {
+	height: 10rem;
+}
+
 :global(.theseed-dark-mode) .seed-edit-input,
-:global(.theseed-dark-mode) .seed-log-input {
+:global(.theseed-dark-mode) .seed-input {
 	background-color: #27292d;
 	border-color: #383b40;
 	color: #fff;

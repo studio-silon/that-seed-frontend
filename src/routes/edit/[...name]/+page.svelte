@@ -141,7 +141,7 @@
 
 			<div class="form-group" style="margin-top: 1rem;">
 				<label class="control-label" for="summaryInput">요약</label>
-				<input type="text" name="log" class="seed-log-input" value="" />
+				<input type="text" name="log" class="seed-input" value="" />
 			</div>
 
 			<label>

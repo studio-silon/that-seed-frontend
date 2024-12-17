@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Backend } from '$lib/backend';
+	import { reloadData } from '$lib/stores/data';
 
 	const backend = new Backend(fetch);
 
@@ -10,9 +12,9 @@
 
 	const handleLogin = async (): Promise<void> => {
 		error = false;
-		console.log(await backend.login(username, password));
 		if (await backend.login(username, password)) {
-			alert('Login successful!');
+			reloadData(fetch);
+			goto('/');
 		} else {
 			error = true;
 		}
@@ -26,27 +28,21 @@
 </div>
 
 <div class="liberty-content-main wiki-article">
+	{#if error}
+		<div class="alert alert-danger">
+			<b>[오류!]</b> 아이디 혹은 패스워드가 틀립니다.
+		</div>
+	{/if}
 	<form class="login-form" on:submit|preventDefault={handleLogin}>
-		{#if error}
-			<div class="alert alert-danger">
-				<b>[error!]</b> Login failed. Please check your credentials.
-			</div>
-		{/if}
 		<div class="form-group">
 			<label for="username">Username</label>
-			<input
-				class="seed-log-input"
-				id="username"
-				bind:value={username}
-				name="username"
-				type="text"
-			/>
+			<input class="seed-input" id="username" bind:value={username} name="username" type="text" />
 		</div>
 
 		<div class="form-group">
 			<label for="password">Password</label>
 			<input
-				class="seed-log-input"
+				class="seed-input"
 				id="password"
 				bind:value={password}
 				name="password"
@@ -73,16 +69,6 @@
 <style>
 	@import '$lib/css/input.css';
 	@import '$lib/css/button.css';
-
-	.alert.alert-danger {
-		color: #721c24;
-		background-color: #f8d7da;
-		border-color: #f5c6cb;
-		padding: 0.75rem 1.25rem;
-		margin-bottom: 1rem;
-		border: 1px solid transparent;
-		border-radius: 0.25rem;
-	}
 
 	.autologin {
 		display: inline-block;

@@ -65,7 +65,7 @@
 					</div>
 
 					<div class="change-column">
-						{formatRelativeDate(change.updatedAt)}
+						{formatRelativeDate(change.versions[0].createdAt)}
 					</div>
 
 					{#if change.versions && change.versions[0] && change.versions[0].log}

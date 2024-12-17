@@ -29,7 +29,10 @@
 						class="recent-item"
 						class:removed={change.versions[0].type === 2}
 					>
-						[{formatRelativeDate(change.createdAt)}] {joinName(change.namespace, change.title)}
+						[{formatRelativeDate(change.versions[0].createdAt)}] {joinName(
+							change.namespace,
+							change.title
+						)}
 					</a>
 				</li>
 			{/each}

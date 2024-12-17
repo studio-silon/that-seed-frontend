@@ -47,8 +47,6 @@ export class Backend {
 				content: string;
 				deleted: boolean;
 				rever: number;
-				createdAt: string;
-				updatedAt: string;
 				versions: {
 					id: number;
 					rever: number;
@@ -188,29 +186,32 @@ export class Backend {
 		const json = await response.json();
 
 		return json as {
-			wiki: {
-				id: number;
-				title: string;
-				namespace: string;
-				versions: {
+			data: {
+				wiki: {
 					id: number;
-					rever: number;
-					log: string;
-					type: number;
-					data: string;
-					added: number;
-					removed: number;
-					content: string;
-					createdAt: string;
-					wikiId: number;
-					userId: number;
-					ipAddress: string;
-					user?: {
-						username: string;
-					};
-				}[];
+					title: string;
+					namespace: string;
+					versions: {
+						id: number;
+						rever: number;
+						log: string;
+						type: number;
+						data: string;
+						added: number;
+						removed: number;
+						content: string;
+						createdAt: string;
+						wikiId: number;
+						userId: number;
+						ipAddress: string;
+						user?: {
+							username: string;
+						};
+					}[];
+				};
+				totalPages: number;
 			};
-			totalPages: number;
+			canRemoveRever: boolean;
 		};
 	}
 
@@ -281,7 +282,7 @@ export class Backend {
 		return response.status !== 400;
 	}
 
-	async signup(username: string, password: string) {
+	async signup(username: string, password: string, token: string) {
 		const response = await fetch('/api/signup/', {
 			method: 'POST',
 			headers: {
@@ -289,11 +290,20 @@ export class Backend {
 			},
 			body: new URLSearchParams({
 				username,
-				password
+				password,
+				token
 			})
 		});
 
 		return response.status !== 400;
+	}
+
+	async getSignupData() {
+		const response = await fetch('/api/signup?_data=routes%2Fsignup');
+
+		const json = await response.json();
+
+		return json as { title: string; needToken: boolean; termsAndConditions: string };
 	}
 
 	async logout() {
