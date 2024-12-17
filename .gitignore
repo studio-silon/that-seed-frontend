@@ -24,3 +24,5 @@ vite.config.ts.timestamp-*
 
 theseed-skin-liberty
 namuwiki
+
+public/img
