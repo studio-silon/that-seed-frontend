@@ -29,7 +29,7 @@
 	<form class="login-form" on:submit|preventDefault={handleLogin}>
 		{#if error}
 			<div class="alert alert-danger">
-				<b>[error!]</b> Login failed. Please check your credentials.
+				<b>[오류!]</b> 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.
 			</div>
 		{/if}
 		<div class="form-group">
